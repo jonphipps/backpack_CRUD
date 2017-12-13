@@ -197,9 +197,6 @@ class CrudController extends BaseController
     {
         $this->crud->hasAccessOrFail('show');
 
-        // set columns from db
-        $this->crud->setFromDb();
-
         // cycle through columns
         foreach ($this->crud->columns as $key => $column) {
             // remove any autoset relationship columns
