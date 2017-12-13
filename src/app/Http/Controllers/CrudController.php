@@ -59,6 +59,7 @@ class CrudController extends BaseController
     /**
      * Display all rows in the database for this entity.
      *
+     * @return Response
      */
     public function index()
     {
@@ -75,6 +76,7 @@ class CrudController extends BaseController
     /**
      * Show the form for creating inserting a new row.
      *
+     * @return Response
      */
     public function create()
     {
@@ -205,7 +207,8 @@ class CrudController extends BaseController
                 $this->crud->removeColumn($column['name']);
             }
         }
-         $this->removeColumns('show');
+
+        $this->removeColumns('show');
 
         // get the info for that entry
         $this->data['entry'] = $this->crud->getEntry($id);

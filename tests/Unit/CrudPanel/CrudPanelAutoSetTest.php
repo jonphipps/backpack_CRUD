@@ -9,155 +9,155 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
     private $expectedUnknownFieldType = 'text';
 
     private $expectedFieldTypeFromColumnType = [
-        'bigintegercol' => 'text',
-        'binarycol' => 'text',
-        'booleancol' => 'text',
-        'charcol' => 'text',
-        'datecol' => 'date',
-        'datetimecol' => 'datetime',
-        'datetimetzcol' => 'datetime',
-        'decimalcol' => 'text',
-        'doublecol' => 'text',
-        'enumcol' => 'text',
-        'floatcol' => 'text',
-        'integercol' => 'text',
-        'ipaddresscol' => 'text',
-        'jsoncol' => 'textarea',
-        'jsonbcol' => 'textarea',
-        'longtextcol' => 'textarea',
-        'macaddresscol' => 'text',
-        'mediumintegercol' => 'text',
-        'mediumtextcol' => 'textarea',
-        'smallintegercol' => 'text',
-        'stringcol' => 'text',
-        'textcol' => 'textarea',
-        'timecol' => 'time',
-        'timetzcol' => 'time',
-        'tinyintegercol' => 'text',
-        'timestampcol' => 'datetime',
-        'timestamptzcol' => 'datetime',
-        'uuidcol' => 'text',
+        'bigIntegerCol' => 'text',
+        'binaryCol' => 'text',
+        'booleanCol' => 'text',
+        'charCol' => 'text',
+        'dateCol' => 'date',
+        'dateTimeCol' => 'datetime',
+        'dateTimeTzCol' => 'datetime',
+        'decimalCol' => 'text',
+        'doubleCol' => 'text',
+        'enumCol' => 'text',
+        'floatCol' => 'text',
+        'integerCol' => 'text',
+        'ipAddressCol' => 'text',
+        'jsonCol' => 'textarea',
+        'jsonbCol' => 'textarea',
+        'longTextCol' => 'textarea',
+        'macAddressCol' => 'text',
+        'mediumIntegerCol' => 'text',
+        'mediumTextCol' => 'textarea',
+        'smallIntegerCol' => 'text',
+        'stringCol' => 'text',
+        'textCol' => 'textarea',
+        'timeCol' => 'time',
+        'timeTzCol' => 'time',
+        'tinyIntegerCol' => 'text',
+        'timestampCol' => 'datetime',
+        'timestampTzCol' => 'datetime',
+        'uuidCol' => 'text',
     ];
 
     private $expectedColumnTypesFromDb = [
-        'bigintegercol' => [
+        'bigIntegerCol' => [
             'type' => 'integer',
             'default' => '',
         ],
-        'binarycol' => [
+        'binaryCol' => [
             'type' => 'blob',
             'default' => '',
         ],
-        'booleancol' => [
+        'booleanCol' => [
             'type' => 'boolean',
             'default' => '',
         ],
-        'charcol' => [
+        'charCol' => [
             'type' => 'string',
             'default' => '',
         ],
-        'datecol' => [
+        'dateCol' => [
             'type' => 'date',
             'default' => '',
         ],
-        'datetimecol' => [
+        'dateTimeCol' => [
             'type' => 'datetime',
             'default' => '',
         ],
-        'datetimetzcol' => [
+        'dateTimeTzCol' => [
             'type' => 'datetime',
             'default' => '',
         ],
-        'decimalcol' => [
+        'decimalCol' => [
             'type' => 'decimal',
             'default' => '',
         ],
-        'doublecol' => [
+        'doubleCol' => [
             'type' => 'float',
             'default' => '',
         ],
-        'enumcol' => [
+        'enumCol' => [
             'type' => 'string',
             'default' => '',
         ],
-        'floatcol' => [
+        'floatCol' => [
             'type' => 'float',
             'default' => '',
         ],
-        'integercol' => [
+        'integerCol' => [
             'type' => 'integer',
             'default' => '',
         ],
-        'ipaddresscol' => [
+        'ipAddressCol' => [
             'type' => 'string',
             'default' => '',
         ],
-        'jsoncol' => [
+        'jsonCol' => [
             'type' => 'text',
             'default' => '',
         ],
-        'jsonbcol' => [
+        'jsonbCol' => [
             'type' => 'text',
             'default' => '',
         ],
-        'longtextcol' => [
+        'longTextCol' => [
             'type' => 'text',
             'default' => '',
         ],
-        'macaddresscol' => [
+        'macAddressCol' => [
             'type' => 'string',
             'default' => '',
         ],
-        'mediumintegercol' => [
+        'mediumIntegerCol' => [
             'type' => 'integer',
             'default' => '',
         ],
-        'mediumtextcol' => [
+        'mediumTextCol' => [
             'type' => 'text',
             'default' => '',
         ],
-        'smallintegercol' => [
+        'smallIntegerCol' => [
             'type' => 'integer',
             'default' => '',
         ],
-        'stringcol' => [
+        'stringCol' => [
             'type' => 'string',
             'default' => '',
         ],
-        'textcol' => [
+        'textCol' => [
             'type' => 'text',
             'default' => '',
         ],
-        'timecol' => [
+        'timeCol' => [
             'type' => 'time',
             'default' => '',
         ],
-        'timetzcol' => [
+        'timeTzCol' => [
             'type' => 'time',
             'default' => '',
         ],
-        'tinyintegercol' => [
+        'tinyIntegerCol' => [
             'type' => 'integer',
             'default' => '',
         ],
-        'timestampcol' => [
+        'timestampCol' => [
             'type' => 'datetime',
             'default' => '',
         ],
-        'timestamptzcol' => [
+        'timestampTzCol' => [
             'type' => 'datetime',
             'default' => '',
         ],
-        'uuidcol' => [
+        'uuidCol' => [
             'type' => 'string',
             'default' => '',
         ],
     ];
 
     private $expectedColumnTypes = [
-        'bigintegercol' => [
-            'name' => 'bigintegercol',
-            'label' => 'Bigintegercol',
+        'bigIntegerCol' => [
+            'name' => 'bigIntegerCol',
+            'label' => 'BigIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -165,9 +165,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'binarycol' => [
-            'name' => 'binarycol',
-            'label' => 'Binarycol',
+        'binaryCol' => [
+            'name' => 'binaryCol',
+            'label' => 'BinaryCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -175,9 +175,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'booleancol' => [
-            'name' => 'booleancol',
-            'label' => 'Booleancol',
+        'booleanCol' => [
+            'name' => 'booleanCol',
+            'label' => 'BooleanCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -185,9 +185,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'charcol' => [
-            'name' => 'charcol',
-            'label' => 'Charcol',
+        'charCol' => [
+            'name' => 'charCol',
+            'label' => 'CharCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -195,9 +195,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'datecol' => [
-            'name' => 'datecol',
-            'label' => 'Datecol',
+        'dateCol' => [
+            'name' => 'dateCol',
+            'label' => 'DateCol',
             'value' => null,
             'default' => null,
             'type' => 'date',
@@ -205,9 +205,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'datetimecol' => [
-            'name' => 'datetimecol',
-            'label' => 'Datetimecol',
+        'dateTimeCol' => [
+            'name' => 'dateTimeCol',
+            'label' => 'DateTimeCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -215,9 +215,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'datetimetzcol' => [
-            'name' => 'datetimetzcol',
-            'label' => 'Datetimetzcol',
+        'dateTimeTzCol' => [
+            'name' => 'dateTimeTzCol',
+            'label' => 'DateTimeTzCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -225,9 +225,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'decimalcol' => [
-            'name' => 'decimalcol',
-            'label' => 'Decimalcol',
+        'decimalCol' => [
+            'name' => 'decimalCol',
+            'label' => 'DecimalCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -235,9 +235,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'doublecol' => [
-            'name' => 'doublecol',
-            'label' => 'Doublecol',
+        'doubleCol' => [
+            'name' => 'doubleCol',
+            'label' => 'DoubleCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -245,9 +245,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'enumcol' => [
-            'name' => 'enumcol',
-            'label' => 'Enumcol',
+        'enumCol' => [
+            'name' => 'enumCol',
+            'label' => 'EnumCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -255,9 +255,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'floatcol' => [
-            'name' => 'floatcol',
-            'label' => 'Floatcol',
+        'floatCol' => [
+            'name' => 'floatCol',
+            'label' => 'FloatCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -265,9 +265,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'integercol' => [
-            'name' => 'integercol',
-            'label' => 'Integercol',
+        'integerCol' => [
+            'name' => 'integerCol',
+            'label' => 'IntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -275,9 +275,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'ipaddresscol' => [
-            'name' => 'ipaddresscol',
-            'label' => 'Ipaddresscol',
+        'ipAddressCol' => [
+            'name' => 'ipAddressCol',
+            'label' => 'IpAddressCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -285,9 +285,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'jsoncol' => [
-            'name' => 'jsoncol',
-            'label' => 'Jsoncol',
+        'jsonCol' => [
+            'name' => 'jsonCol',
+            'label' => 'JsonCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -295,9 +295,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'jsonbcol' => [
-            'name' => 'jsonbcol',
-            'label' => 'Jsonbcol',
+        'jsonbCol' => [
+            'name' => 'jsonbCol',
+            'label' => 'JsonbCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -305,9 +305,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'longtextcol' => [
-            'name' => 'longtextcol',
-            'label' => 'Longtextcol',
+        'longTextCol' => [
+            'name' => 'longTextCol',
+            'label' => 'LongTextCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -315,9 +315,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'macaddresscol' => [
-            'name' => 'macaddresscol',
-            'label' => 'Macaddresscol',
+        'macAddressCol' => [
+            'name' => 'macAddressCol',
+            'label' => 'MacAddressCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -325,9 +325,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'mediumintegercol' => [
-            'name' => 'mediumintegercol',
-            'label' => 'Mediumintegercol',
+        'mediumIntegerCol' => [
+            'name' => 'mediumIntegerCol',
+            'label' => 'MediumIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -335,9 +335,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'mediumtextcol' => [
-            'name' => 'mediumtextcol',
-            'label' => 'Mediumtextcol',
+        'mediumTextCol' => [
+            'name' => 'mediumTextCol',
+            'label' => 'MediumTextCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -345,9 +345,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'smallintegercol' => [
-            'name' => 'smallintegercol',
-            'label' => 'Smallintegercol',
+        'smallIntegerCol' => [
+            'name' => 'smallIntegerCol',
+            'label' => 'SmallIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -355,9 +355,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'stringcol' => [
-            'name' => 'stringcol',
-            'label' => 'Stringcol',
+        'stringCol' => [
+            'name' => 'stringCol',
+            'label' => 'StringCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -365,9 +365,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'textcol' => [
-            'name' => 'textcol',
-            'label' => 'Textcol',
+        'textCol' => [
+            'name' => 'textCol',
+            'label' => 'TextCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -375,9 +375,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timecol' => [
-            'name' => 'timecol',
-            'label' => 'Timecol',
+        'timeCol' => [
+            'name' => 'timeCol',
+            'label' => 'TimeCol',
             'value' => null,
             'default' => null,
             'type' => 'time',
@@ -385,9 +385,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timetzcol' => [
-            'name' => 'timetzcol',
-            'label' => 'Timetzcol',
+        'timeTzCol' => [
+            'name' => 'timeTzCol',
+            'label' => 'TimeTzCol',
             'value' => null,
             'default' => null,
             'type' => 'time',
@@ -395,9 +395,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'tinyintegercol' => [
-            'name' => 'tinyintegercol',
-            'label' => 'Tinyintegercol',
+        'tinyIntegerCol' => [
+            'name' => 'tinyIntegerCol',
+            'label' => 'TinyIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -405,9 +405,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timestampcol' => [
-            'name' => 'timestampcol',
-            'label' => 'Timestampcol',
+        'timestampCol' => [
+            'name' => 'timestampCol',
+            'label' => 'TimestampCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -415,9 +415,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timestamptzcol' => [
-            'name' => 'timestamptzcol',
-            'label' => 'Timestamptzcol',
+        'timestampTzCol' => [
+            'name' => 'timestampTzCol',
+            'label' => 'TimestampTzCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -425,9 +425,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'uuidcol' => [
-            'name' => 'uuidcol',
-            'label' => 'Uuidcol',
+        'uuidCol' => [
+            'name' => 'uuidCol',
+            'label' => 'UuidCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -438,9 +438,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
     ];
 
     private $expectedFieldsFromDb = [
-        'bigintegercol' => [
-            'name' => 'bigintegercol',
-            'label' => 'Bigintegercol',
+        'bigIntegerCol' => [
+            'name' => 'bigIntegerCol',
+            'label' => 'BigIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -448,9 +448,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'binarycol' => [
-            'name' => 'binarycol',
-            'label' => 'Binarycol',
+        'binaryCol' => [
+            'name' => 'binaryCol',
+            'label' => 'BinaryCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -458,9 +458,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'booleancol' => [
-            'name' => 'booleancol',
-            'label' => 'Booleancol',
+        'booleanCol' => [
+            'name' => 'booleanCol',
+            'label' => 'BooleanCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -468,9 +468,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'charcol' => [
-            'name' => 'charcol',
-            'label' => 'Charcol',
+        'charCol' => [
+            'name' => 'charCol',
+            'label' => 'CharCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -478,9 +478,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'datecol' => [
-            'name' => 'datecol',
-            'label' => 'Datecol',
+        'dateCol' => [
+            'name' => 'dateCol',
+            'label' => 'DateCol',
             'value' => null,
             'default' => null,
             'type' => 'date',
@@ -488,9 +488,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'datetimecol' => [
-            'name' => 'datetimecol',
-            'label' => 'Datetimecol',
+        'dateTimeCol' => [
+            'name' => 'dateTimeCol',
+            'label' => 'DateTimeCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -498,9 +498,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'datetimetzcol' => [
-            'name' => 'datetimetzcol',
-            'label' => 'Datetimetzcol',
+        'dateTimeTzCol' => [
+            'name' => 'dateTimeTzCol',
+            'label' => 'DateTimeTzCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -508,9 +508,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'decimalcol' => [
-            'name' => 'decimalcol',
-            'label' => 'Decimalcol',
+        'decimalCol' => [
+            'name' => 'decimalCol',
+            'label' => 'DecimalCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -518,9 +518,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'doublecol' => [
-            'name' => 'doublecol',
-            'label' => 'Doublecol',
+        'doubleCol' => [
+            'name' => 'doubleCol',
+            'label' => 'DoubleCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -528,9 +528,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'enumcol' => [
-            'name' => 'enumcol',
-            'label' => 'Enumcol',
+        'enumCol' => [
+            'name' => 'enumCol',
+            'label' => 'EnumCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -538,9 +538,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'floatcol' => [
-            'name' => 'floatcol',
-            'label' => 'Floatcol',
+        'floatCol' => [
+            'name' => 'floatCol',
+            'label' => 'FloatCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -548,9 +548,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'integercol' => [
-            'name' => 'integercol',
-            'label' => 'Integercol',
+        'integerCol' => [
+            'name' => 'integerCol',
+            'label' => 'IntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -558,9 +558,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'ipaddresscol' => [
-            'name' => 'ipaddresscol',
-            'label' => 'Ipaddresscol',
+        'ipAddressCol' => [
+            'name' => 'ipAddressCol',
+            'label' => 'IpAddressCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -568,9 +568,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'jsoncol' => [
-            'name' => 'jsoncol',
-            'label' => 'Jsoncol',
+        'jsonCol' => [
+            'name' => 'jsonCol',
+            'label' => 'JsonCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -578,9 +578,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'jsonbcol' => [
-            'name' => 'jsonbcol',
-            'label' => 'Jsonbcol',
+        'jsonbCol' => [
+            'name' => 'jsonbCol',
+            'label' => 'JsonbCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -588,9 +588,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'longtextcol' => [
-            'name' => 'longtextcol',
-            'label' => 'Longtextcol',
+        'longTextCol' => [
+            'name' => 'longTextCol',
+            'label' => 'LongTextCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -598,9 +598,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'macaddresscol' => [
-            'name' => 'macaddresscol',
-            'label' => 'Macaddresscol',
+        'macAddressCol' => [
+            'name' => 'macAddressCol',
+            'label' => 'MacAddressCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -608,9 +608,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'mediumintegercol' => [
-            'name' => 'mediumintegercol',
-            'label' => 'Mediumintegercol',
+        'mediumIntegerCol' => [
+            'name' => 'mediumIntegerCol',
+            'label' => 'MediumIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -618,9 +618,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'mediumtextcol' => [
-            'name' => 'mediumtextcol',
-            'label' => 'Mediumtextcol',
+        'mediumTextCol' => [
+            'name' => 'mediumTextCol',
+            'label' => 'MediumTextCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -628,9 +628,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'smallintegercol' => [
-            'name' => 'smallintegercol',
-            'label' => 'Smallintegercol',
+        'smallIntegerCol' => [
+            'name' => 'smallIntegerCol',
+            'label' => 'SmallIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -638,9 +638,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'stringcol' => [
-            'name' => 'stringcol',
-            'label' => 'Stringcol',
+        'stringCol' => [
+            'name' => 'stringCol',
+            'label' => 'StringCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -648,9 +648,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'textcol' => [
-            'name' => 'textcol',
-            'label' => 'Textcol',
+        'textCol' => [
+            'name' => 'textCol',
+            'label' => 'TextCol',
             'value' => null,
             'default' => null,
             'type' => 'textarea',
@@ -658,9 +658,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timecol' => [
-            'name' => 'timecol',
-            'label' => 'Timecol',
+        'timeCol' => [
+            'name' => 'timeCol',
+            'label' => 'TimeCol',
             'value' => null,
             'default' => null,
             'type' => 'time',
@@ -668,9 +668,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timetzcol' => [
-            'name' => 'timetzcol',
-            'label' => 'Timetzcol',
+        'timeTzCol' => [
+            'name' => 'timeTzCol',
+            'label' => 'TimeTzCol',
             'value' => null,
             'default' => null,
             'type' => 'time',
@@ -678,9 +678,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'tinyintegercol' => [
-            'name' => 'tinyintegercol',
-            'label' => 'Tinyintegercol',
+        'tinyIntegerCol' => [
+            'name' => 'tinyIntegerCol',
+            'label' => 'TinyIntegerCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
@@ -688,9 +688,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timestampcol' => [
-            'name' => 'timestampcol',
-            'label' => 'Timestampcol',
+        'timestampCol' => [
+            'name' => 'timestampCol',
+            'label' => 'TimestampCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -698,9 +698,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'timestamptzcol' => [
-            'name' => 'timestamptzcol',
-            'label' => 'Timestamptzcol',
+        'timestampTzCol' => [
+            'name' => 'timestampTzCol',
+            'label' => 'TimestampTzCol',
             'value' => null,
             'default' => null,
             'type' => 'datetime',
@@ -708,9 +708,9 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'attributes' => [],
             'autoset' => true,
         ],
-        'uuidcol' => [
-            'name' => 'uuidcol',
-            'label' => 'Uuidcol',
+        'uuidCol' => [
+            'name' => 'uuidCol',
+            'label' => 'UuidCol',
             'value' => null,
             'default' => null,
             'type' => 'text',
