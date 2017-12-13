@@ -13,6 +13,7 @@ trait AjaxTable
     {
         $this->crud->hasAccessOrFail('list');
 
+        $this->removeColumns('list');
         $totalRows = $filteredRows = $this->crud->count();
 
         // if a search term was present
