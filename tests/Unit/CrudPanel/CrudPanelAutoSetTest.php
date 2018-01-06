@@ -10,7 +10,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
     private $expectedUnknownFieldType = 'text';
 
     private $expectedFieldTypeFromColumnType = [
-        'bigIntegerCol' => 'text',
+        'bigIntegerCol' => 'number',
         'binaryCol' => 'text',
         'booleanCol' => 'boolean',
         'charCol' => 'text',
