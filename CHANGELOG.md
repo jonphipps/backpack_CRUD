@@ -22,6 +22,31 @@ All Notable changes to `Backpack CRUD` will be documented in this file
 -----------
 
 
+## [3.3.5] - 2018-01-xx
+
+## Added
+- custom error message for AJAX datatable errors - merged #1100; 
+
+
+## [3.3.4] - 2017-12-19
+
+## Fixed
+- ENUM field - Updated ```getPossibleEnumValues``` to use ```$instance->getConnectionName()``` so that enum values are correctly queried when the Model uses a non-default database connection - merged #650;
+- addColumn will not overwrite the searchLogic, orderable and tableColumn attributes if otherwise specified;
+- Better sorting effect on "table" fields - merged #466;
+- When using the Autoset trait, the getDbColumnTypes() method used many separate queries to get the column type and column default; improved performance by merging #1159;
+- fakeFields use array_keys_exists instead of isset - merged #734;
+- CrudTrait::addFakes now supports objects - merged #1109;
+
+
+## [3.3.3] - 2017-12-14
+
+## Fixed
+- Chinese translation;
+- datetimepicker icon now triggers datetimepicker js - merged #1097;
+- columns are now picked up using the database connection on the model - merged #1141; fixes #1136;
+- model_function buttons now work for top and bottom stacks too - fixes #713;
+
 ## [3.3.2] - 2017-12-12
 
 ## Added

@@ -40,6 +40,12 @@ return [
         // $this->crud->setDefaultPageLength(50);
         'default_page_length' => 25,
 
+        // Exclude primary key, 'created', 'updated', 'deleted' metadata for all models in lists by default
+        // If this is set to false these columns will be included in list and show views by default.
+        //  Note: After setting to false, metadata columns for any individual model can still be excluded by
+        //        adding the columns you wish to exclude to the 'hidden' property array of the model
+        'exclude_metadata_columns' => true,
+
     // PREVIEW
 
     /*

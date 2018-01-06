@@ -3,6 +3,7 @@
 namespace Backpack\CRUD\Tests\Unit\CrudPanel;
 
 use Backpack\CRUD\Tests\Unit\Models\ColumnType;
+use Backpack\CRUD\Tests\Unit\Models\User;
 
 class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
 {
@@ -11,29 +12,29 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
     private $expectedFieldTypeFromColumnType = [
         'bigIntegerCol' => 'text',
         'binaryCol' => 'text',
-        'booleanCol' => 'text',
+        'booleanCol' => 'boolean',
         'charCol' => 'text',
         'dateCol' => 'date',
         'dateTimeCol' => 'datetime',
         'dateTimeTzCol' => 'datetime',
-        'decimalCol' => 'text',
-        'doubleCol' => 'text',
+        'decimalCol' => 'number',
+        'doubleCol' => 'number',
         'enumCol' => 'text',
-        'floatCol' => 'text',
-        'integerCol' => 'text',
+        'floatCol' => 'number',
+        'integerCol' => 'number',
         'ipAddressCol' => 'text',
         'jsonCol' => 'textarea',
         'jsonbCol' => 'textarea',
         'longTextCol' => 'textarea',
         'macAddressCol' => 'text',
-        'mediumIntegerCol' => 'text',
+        'mediumIntegerCol' => 'number',
         'mediumTextCol' => 'textarea',
-        'smallIntegerCol' => 'text',
+        'smallIntegerCol' => 'number',
         'stringCol' => 'text',
         'textCol' => 'textarea',
         'timeCol' => 'time',
         'timeTzCol' => 'time',
-        'tinyIntegerCol' => 'text',
+        'tinyIntegerCol' => 'number',
         'timestampCol' => 'datetime',
         'timestampTzCol' => 'datetime',
         'uuidCol' => 'text',
@@ -180,7 +181,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'label' => 'BooleanCol',
             'value' => null,
             'default' => null,
-            'type' => 'text',
+            'type' => 'boolean',
             'values' => [],
             'attributes' => [],
             'autoset' => true,
@@ -443,7 +444,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'label' => 'BigIntegerCol',
             'value' => null,
             'default' => null,
-            'type' => 'text',
+            'type' => 'number',
             'values' => [],
             'attributes' => [],
             'autoset' => true,
@@ -463,7 +464,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'label' => 'BooleanCol',
             'value' => null,
             'default' => null,
-            'type' => 'text',
+            'type' => 'checkbox',
             'values' => [],
             'attributes' => [],
             'autoset' => true,
@@ -513,7 +514,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'label' => 'DecimalCol',
             'value' => null,
             'default' => null,
-            'type' => 'text',
+            'type' => 'number',
             'values' => [],
             'attributes' => [],
             'autoset' => true,
@@ -523,7 +524,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'label' => 'DoubleCol',
             'value' => null,
             'default' => null,
-            'type' => 'text',
+            'type' => 'number',
             'values' => [],
             'attributes' => [],
             'autoset' => true,
@@ -543,7 +544,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'label' => 'FloatCol',
             'value' => null,
             'default' => null,
-            'type' => 'text',
+            'type' => 'number',
             'values' => [],
             'attributes' => [],
             'autoset' => true,
@@ -553,7 +554,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
             'label' => 'IntegerCol',
             'value' => null,
             'default' => null,
-            'type' => 'text',
+            'type' => 'number',
             'values' => [],
             'attributes' => [],
             'autoset' => true,
@@ -761,7 +762,7 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
 
     public function testMakeLabel()
     {
-        $this->markTestIncomplete('Not correctly implemented');
+        //$this->markTestIncomplete('Not correctly implemented');
 
         $idLabel = $this->crudPanel->makeLabel('id');
         $snakeCaseFKLabel = $this->crudPanel->makeLabel('id_user');
@@ -778,16 +779,16 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
         // TODO: the id label gets removed. it should not be removed if it is not followed by anything.
         // TODO: improve method documentation to know what to expect.
         $this->assertEquals('Id', $idLabel);
-        $this->assertEquals('Id user', $snakeCaseFKLabel);
-        $this->assertEquals('IdUser', $camelCaseFKLabel);
+        $this->assertEquals('Id User', $snakeCaseFKLabel);
+        $this->assertEquals('Id User', $camelCaseFKLabel);
         $this->assertEquals('User', $camelCaseFKLabelReversed);
         $this->assertEquals('Created', $dateLabel);
-        $this->assertEquals('CamelCaseLabel', $camelCaseLabel);
-        $this->assertEquals('CamelCaseLabelRANDOMCase', $camelCaseRandomLabel);
+        $this->assertEquals('Camel Case Label', $camelCaseLabel);
+        $this->assertEquals('Camel Case Label Random Case', $camelCaseRandomLabel);
         $this->assertEquals('Label', $simpleLabel);
-        $this->assertEquals('Snake case label', $snakeCaseLabel);
-        $this->assertEquals('Snake Case random CASE', $snakeCaseRandomLabel);
-        $this->assertEquals('ALLCAPSLABEL', $allCapsLabel);
+        $this->assertEquals('Snake Case Label', $snakeCaseLabel);
+        $this->assertEquals('Snake Case Random Case', $snakeCaseRandomLabel);
+        $this->assertEquals('Allcapslabel', $allCapsLabel);
     }
 
     public function testMakeLabelEmpty()
@@ -804,5 +805,31 @@ class CrudPanelAutoSetTest extends BaseDBCrudPanelTest
         $columnNames = $this->crudPanel->getDbColumnsNames();
 
         $this->assertEquals(array_keys($this->expectedColumnTypes), $columnNames);
+    }
+
+    public function testGetColumnTypeFromDbColumnType()
+    {
+        $this->crudPanel->setModel(ColumnType::class);
+        $this->crudPanel->setFromDb();
+
+        $this->assertEquals(\count($this->expectedColumnTypes), \count($this->crudPanel->columns));
+        foreach ($this->crudPanel->columns as $key => $value) {
+            $this->assertEquals($this->expectedColumnTypes[$key]['type'], $value['type']);
+        }
+
+    }
+
+    public function testExcludeMetadataColumns()
+    {
+        $this->crudPanel->setModel(User::class);
+
+        config(['backpack.crud.exclude_metadata_columns' => true]);
+        $this->crudPanel->setFromDb();
+        $this->assertCount(4, $this->crudPanel->columns);
+
+        config(['backpack.crud.exclude_metadata_columns' => false]);
+        $this->crudPanel->setFromDb();
+        $this->assertCount(7, $this->crudPanel->columns);
+
     }
 }

@@ -4,6 +4,7 @@ namespace Backpack\CRUD\app\Http\Controllers;
 
 use Backpack\CRUD\CrudPanel;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Form as Form;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -59,7 +60,8 @@ class CrudController extends BaseController
     /**
      * Display all rows in the database for this entity.
      *
-     * @return Response
+     * @return View
+     * @throws \Backpack\CRUD\Exception\AccessDeniedException
      */
     public function index()
     {

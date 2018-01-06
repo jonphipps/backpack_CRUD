@@ -58,7 +58,11 @@ class CrudPanel
     public $query;
     public $entry;
     public $buttons;
-    public $db_column_types = [];
+
+    protected $db_columns = [];
+    protected $db_column_types = [];
+    protected $db_column_names = [];
+    protected $db_all_column_names = [];
     public $default_page_length = false;
 
     // TONE FIELDS - TODO: find out what he did with them, replicate or delete
@@ -105,6 +109,16 @@ class CrudPanel
         return $this->model;
     }
 
+    public function getDbColumns()
+    {
+        if (empty($this->db_columns)) {
+            $table         = $this->model->getTable();
+            $conn          = $this->model->getConnection();
+            $this->db_columns = $conn->getDoctrineSchemaManager()->listTableColumns($table);
+        }
+
+        return $this->db_columns;
+    }
     /**
      * Set the route for this CRUD.
      * Ex: admin/article.

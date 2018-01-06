@@ -2,7 +2,6 @@
 
 namespace Backpack\CRUD\PanelTraits;
 
-use Illuminate\Support\Facades\Schema;
 trait Columns
 {
     // ------------
@@ -61,6 +60,8 @@ trait Columns
      * Add a column at the end of to the CRUD object's "columns" array.
      *
      * @param [string or array]
+     *
+     * @return Columns
      */
     public function addColumn($column)
     {
@@ -77,6 +78,9 @@ trait Columns
             $column_with_details['name'] = 'anonymous_column_'.str_random(5);
         }
 
+        // check if the column exists in the database table
+        $columnExistsInDb = $this->hasColumn($column_with_details['name']);
+
         // make sure the column has a type
         if (! array_key_exists('type', $column_with_details)) {
             $column_with_details['type'] = 'text';
@@ -87,13 +91,19 @@ trait Columns
             $column_with_details['key'] = $column_with_details['name'];
         }
 
-        // check if the column exists in the DB table
-        if ($this->hasColumn($this->model->getTable(), $column_with_details['name'])) {
-            $column_with_details['tableColumn'] = true;
-        } else {
-            $column_with_details['tableColumn'] = false;
-            $column_with_details['orderable'] = false;
-            $column_with_details['searchLogic'] = false;
+        // make sure the column has a tableColumn boolean
+        if (! array_key_exists('tableColumn', $column_with_details)) {
+            $column_with_details['tableColumn'] = $columnExistsInDb ? true : false;
+        }
+
+        // make sure the column has a orderable boolean
+        if (! array_key_exists('orderable', $column_with_details)) {
+            $column_with_details['orderable'] = $columnExistsInDb ? true : false;
+        }
+
+        // make sure the column has a searchLogic
+        if (! array_key_exists('searchLogic', $column_with_details)) {
+            $column_with_details['searchLogic'] = $columnExistsInDb ? true : false;
         }
 
         array_filter($this->columns[$column_with_details['key']] = $column_with_details);
@@ -348,16 +358,14 @@ trait Columns
         return reset($result);
     }
 
-    protected function hasColumn($table, $name)
+    /**
+     * Determine if the column is a real column in the database
+     * @param $name
+     *
+     * @return bool
+     */
+    protected function hasColumn($name)
     {
-        static $cache = [];
-
-        if (isset($cache[$table])) {
-            $columns = $cache[$table];
-        } else {
-            $columns = $cache[$table] = \Schema::getColumnListing($table);
-        }
-
-        return in_array($name, $columns);
+        return \in_array($name, $this->getAllDbColumnsNames(), true);
     }
 }

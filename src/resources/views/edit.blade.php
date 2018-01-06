@@ -27,7 +27,7 @@
 		  {!! Form::open(array('url' => $crud->route.'/'.$entry->getKey(), 'method' => 'put', 'files'=>$crud->hasUploadFields('update', $entry->getKey()))) !!}
 		  <div class="box">
 		    <div class="box-header with-border">
-		    	@if ($crud->model->translationEnabled())
+		    	@if (method_exists($crud->model,'translationEnabled') && $crud->model->translationEnabled())
 			    	<!-- Single button -->
 					<div class="btn-group pull-right">
 					  <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

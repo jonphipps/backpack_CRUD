@@ -17,52 +17,61 @@ trait AutoSet
         $this->setDoctrineTypesMapping();
         $this->getDbColumnTypes();
 
-        array_map(function ($field) {
+        array_map(function($field) {
             // $this->labels[$field] = $this->makeLabel($field);
-
+            $type = $this->getFieldTypeFromDbColumnType($field) === 'boolean' ? 'checkbox' : $this->getFieldTypeFromDbColumnType($field);
+            $default = isset($this->db_column_types[ $field ]['default']) ? $this->db_column_types[ $field ]['default'] : null;
             $new_field = [
                 'name'       => $field,
-                'label'      => ucfirst($field),
+                'label'      => $this->makeLabel($field),
                 'value'      => null,
-                'default'    => isset($this->db_column_types[$field]['default']) ? $this->db_column_types[$field]['default'] : null,
-                'type'       => $this->getFieldTypeFromDbColumnType($field),
+                'default'    => $default,
+                'type'       => $type,
                 'values'     => [],
                 'attributes' => [],
                 'autoset'    => true,
             ];
-            if (! isset($this->create_fields[$field])) {
-                $this->create_fields[$field] = $new_field;
+            if ( ! isset($this->create_fields[ $field ])) {
+                $this->create_fields[ $field ] = $new_field;
             }
-            if (! isset($this->update_fields[$field])) {
-                $this->update_fields[$field] = $new_field;
+            if ( ! isset($this->update_fields[ $field ])) {
+                $this->update_fields[ $field ] = $new_field;
             }
+        }, $this->getDbColumnsNames());
 
-            if (! in_array($field, $this->model->getHidden()) && ! isset($this->columns[$field])) {
+        $columns = config('backpack.crud.exclude_metadata_columns', true) ?
+            array_diff($this->getAllDbColumnsNames(), $this->getMetaColumns()) :
+            $this->getAllDbColumnsNames();
+        array_map(function($field) {
+            if ( ! isset($this->columns[ $field ]) && ! \in_array($field, $this->model->getHidden(), true)) {
+                //we don't have a distinct column type for numbers
+                $type = $this->getFieldTypeFromDbColumnType($field) !== 'number' ? $this->getFieldTypeFromDbColumnType($field) : 'text';
                 $this->addColumn([
-                    'name'  => $field,
-                    'label' => ucfirst($field),
-                    'type'  => $this->getFieldTypeFromDbColumnType($field),
+                    'name'    => $field,
+                    'label'   => $this->makeLabel($field),
+                    'type'    => $type,
                     'autoset' => true,
                 ]);
             }
-        }, $this->getDbColumnsNames());
+        }, $columns);
     }
 
     /**
      * Get all columns from the database for that table.
      *
-     * @return [array]
+     * @return array
      */
     public function getDbColumnTypes()
     {
-        $table = $this->model->getTable();
-        $conn = $this->model->getConnection();
-        $table_columns = $conn->getDoctrineSchemaManager()->listTableColumns($table);
+        if (empty($this->db_column_types)) {
+            $table_columns = $this->getDbColumns();
 
-        foreach ($table_columns as $key => $column) {
-            $column_type = $column->getType()->getName();
-            $this->db_column_types[$column->getName()]['type'] = trim(preg_replace('/\(\d+\)(.*)/i', '', $column_type));
-            $this->db_column_types[$column->getName()]['default'] = $column->getDefault();
+            foreach ($table_columns as $key => $column) {
+                $column_type = $column->getType()->getName();
+
+                $this->db_column_types[ $column->getName() ]['type']    = trim(preg_replace('/\(\d+\)(.*)/i', '', $column_type));
+                $this->db_column_types[ $column->getName() ]['default'] = $column->getDefault();
+            }
         }
 
         return $this->db_column_types;
@@ -73,78 +82,82 @@ trait AutoSet
      *
      * @param  [string] Field name.
      *
-     * @return [string] Fielt type.
+     * @return string Field type.
      */
     public function getFieldTypeFromDbColumnType($field)
     {
-        if (! array_key_exists($field, $this->db_column_types)) {
+        if ( ! array_key_exists($field, $this->db_column_types)) {
             return 'text';
         }
 
-        if ($field == 'password') {
+        if ($field === 'password') {
             return 'password';
         }
 
-        if ($field == 'email') {
+        if ($field === 'email') {
             return 'email';
         }
 
-        switch ($this->db_column_types[$field]['type']) {
+        switch ($this->db_column_types[ $field ]['type']) {
+            case 'decimal':
+            case 'float':
             case 'int':
-            case 'smallint':
+            case 'integer':
             case 'mediumint':
             case 'longint':
+            case 'smallint':
                 return 'number';
-            break;
+                break;
 
             case 'string':
             case 'varchar':
             case 'set':
                 return 'text';
-            break;
+                break;
 
             // case 'enum':
             //     return 'enum';
             // break;
 
+            case 'boolean':
             case 'tinyint':
-                return 'active';
-            break;
+                return 'boolean';
+                break;
 
             case 'text':
                 return 'textarea';
-            break;
+                break;
 
             case 'mediumtext':
             case 'longtext':
                 return 'textarea';
-            break;
+                break;
 
             case 'date':
                 return 'date';
-            break;
+                break;
 
             case 'datetime':
             case 'timestamp':
                 return 'datetime';
-            break;
+                break;
             case 'time':
                 return 'time';
-            break;
+                break;
 
             default:
                 return 'text';
-            break;
+                break;
         }
     }
 
     // Fix for DBAL not supporting enum
     public function setDoctrineTypesMapping()
     {
-        $types = ['enum' => 'string'];
+        $types    = [ 'enum' => 'string' ];
         $platform = \DB::getDoctrineConnection()->getDatabasePlatform();
         foreach ($types as $type_key => $type_value) {
-            if (! $platform->hasDoctrineTypeMappingFor($type_key)) {
+            if ( ! $platform->hasDoctrineTypeMappingFor($type_key)) {
                 $platform->registerDoctrineTypeMapping($type_key, $type_value);
             }
         }
@@ -152,32 +165,88 @@ trait AutoSet
 
     /**
      * Turn a database column name or PHP variable into a pretty label to be shown to the user.
+     * Converts CamelCase variables to underscore and then converts underscores to spaces
      *
-     * @param  [string]
+     * @param  string $value
      *
-     * @return [string]
+     * @return string
      */
     public function makeLabel($value)
     {
-        return trim(preg_replace('/(id|at|\[\])$/i', '', ucfirst(str_replace('_', ' ', $value))));
+        if (strtolower($value) === 'id') {
+            return 'Id';
+        };
+        return title_case(trim(preg_replace('/(id|at|\[\])$/i', '', str_replace('_', ' ', $this->CamelCaseToSeparator($value)))));
+    }
+
+    /**
+     * Converts CamelCase string to underscore
+     * https://stackoverflow.com/a/33606137/634129
+     *
+     * @param        $value
+     * @param string $separator
+     *
+     * @return string
+     */
+    private function CamelCaseToSeparator($value, $separator = '_')
+    {
+        if ( ! is_scalar($value) && ! is_array($value)) {
+            return $value;
+        }
+        if (\defined('PREG_BAD_UTF8_OFFSET_ERROR') && preg_match('/\pL/u', 'a') == 1) {
+            $pattern     = [ '#(?<=(?:\p{Lu}))(\p{Lu}\p{Ll})#', '#(?<=(?:\p{Ll}|\p{Nd}))(\p{Lu})#' ];
+            $replacement = [ $separator . '\1', $separator . '\1' ];
+        } else {
+            $pattern     = [ '#(?<=(?:[A-Z]))([A-Z]+)([A-Z][a-z])#', '#(?<=(?:[a-z0-9]))([A-Z])#' ];
+            $replacement = [ '\1' . $separator . '\2', $separator . '\1' ];
+        }
+
+        return preg_replace($pattern, $replacement, $value);
+    }
+
+    public function getAllDbColumnsNames()
+    {
+        if (empty($this->db_all_column_names)) {
+            $this->db_all_column_names = array_keys($this->getDbColumnTypes());
+        }
+
+        return $this->db_all_column_names;
     }
 
     /**
      * Get the database column names, in order to figure out what fields/columns to show in the auto-fields-and-columns functionality.
      *
-     * @return [array] Database column names as an array.
+     * @return array Database column names as an array.
      */
     public function getDbColumnsNames()
     {
-        // Automatically-set columns should be both in the database, and in the $fillable variable on the Eloquent Model
-        $columns = $this->model->getConnection()->getSchemaBuilder()->getColumnListing($this->model->getTable());
-        $fillable = $this->model->getFillable();
+        //build the db_column_names array only once
+        if (empty($this->db_column_names)) {
+            // Automatically-set columns should be both in the database, and in the $fillable variable on the Eloquent Model
+            $this->db_column_names = $this->getAllDbColumnsNames();
 
-        if (! empty($fillable)) {
-            $columns = array_intersect($columns, $fillable);
+            $columns  = $this->db_column_names;
+            $fillable = $this->model->getFillable();
+            if ( ! empty($fillable)) {
+                $columns = array_intersect($columns, $fillable);
+            }// but not key, created_at, updated_at, deleted_at
+            $this->db_column_names = array_values(array_diff($columns, $this->getMetaColumns()));
         }
 
-        // but not updated_at, deleted_at
-        return array_values(array_diff($columns, [$this->model->getKeyName(), $this->model->getCreatedAtColumn(), $this->model->getUpdatedAtColumn(), 'deleted_at']));
+        return $this->db_column_names;
+    }
+
+    /**
+     * Create an array of metadata column names to be excluded from columns/fields
+     * @return array
+     */
+    private function getMetaColumns()
+    {
+        return [
+            $this->model->getKeyName(),
+            method_exists($this->model, 'getCreatedAtColumn') ? $this->model->getCreatedAtColumn() : null,
+            method_exists($this->model, 'getUpdatedAtColumn') ? $this->model->getUpdatedAtColumn() : null,
+            method_exists($this->model, 'getDeletedAtColumn') ? $this->model->getDeletedAtColumn() : null,
+        ];
     }
 }

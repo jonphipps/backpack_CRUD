@@ -52,8 +52,10 @@ trait Read
         $entries = $this->query->get();
 
         // add the fake columns for each entry
-        foreach ($entries as $key => $entry) {
-            $entry->addFakes($this->getFakeColumnsAsArray());
+        if (method_exists($this, 'addFakes')) {
+            foreach ($entries as $key => $entry) {
+                $entry->addFakes($this->getFakeColumnsAsArray());
+            }
         }
 
         return $entries;
